@@ -79,8 +79,8 @@ program:
 ;
 
 stmt_list:
-    stmt
     | stmt_list stmt
+    stmt
 ;
 
 stmt:
@@ -115,14 +115,14 @@ stmt:
             // Skip else-block
             executing = 0;
             // Parse else-block without executing
-            $8;
+            $$ = 0;
         } 
         // Execute else-block if condition false
         else {
             // Skip if-block
             executing = 0;
             // Parse if-block without executing
-            $4;
+            $$ = 0;
             // Execute else-block
             executing = 1;
             $$ = $8;
@@ -139,7 +139,7 @@ stmt:
             for (i = start; i <= end; i++) {
                 install(varname, i);
                 // Execute loop body
-                $9;
+                $$ = 0;
             }
         }
         free($2);  // Free loop variable name
