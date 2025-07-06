@@ -8,7 +8,7 @@
 
 %%
 
-[ \t\n]         ; /* Skip whitespace */
+[ \t\r\n]         ; /* Skip whitespace */
 "print"         { return PRINT; }
 "if"            { return IF; }
 "else"          { return ELSE; }
