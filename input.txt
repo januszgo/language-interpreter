@@ -6,7 +6,7 @@ if a > 5 {
     print 100;
 } else {
     print 200;
-}
+};
 
 if a < 5 {
     print 100;

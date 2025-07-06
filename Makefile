@@ -52,7 +52,9 @@ clean:
 ifeq ($(IS_WINDOWS),1)
 	@if exist build rmdir /s /q build
 	@if exist include rmdir /s /q include
+	@if exist interpreter.exe del interpreter.exe
 else
 	@rm -rf build
 	@rm -rf include
+	@rm -f interpreter
 endif
