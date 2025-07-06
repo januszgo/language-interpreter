@@ -38,6 +38,7 @@ ifeq ($(IS_WINDOWS),1)
 	$(FLEX)
 	$(BISON)
 	$(GCC)
+	@./interpreter input.txt
 else
 	@rm -rf build
 	@mkdir -p build
@@ -46,6 +47,7 @@ else
 	$(FLEX)
 	$(BISON)
 	$(GCC)
+	@./interpreter input.txt
 endif
 
 clean:
