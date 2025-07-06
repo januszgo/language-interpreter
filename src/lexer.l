@@ -5,7 +5,6 @@
 %}
 
 %option noyywrap
-%option nounistd
 
 %%
 

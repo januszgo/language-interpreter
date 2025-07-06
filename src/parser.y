@@ -79,8 +79,8 @@ program:
 ;
 
 stmt_list:
-    | stmt_list stmt
     stmt
+    | stmt_list stmt
 ;
 
 stmt:
@@ -92,7 +92,7 @@ stmt:
         if (executing) install($1, $3); 
         $$ = 0; 
     }
-    | IF bool_expr '{' stmt_list '}' {
+    | IF bool_expr '{' stmt_list '}' ';' {
         int condition = $2;
         int saved_executing = executing;
         
@@ -103,7 +103,7 @@ stmt:
         $$ = $4;
         executing = saved_executing;
     }
-    | IF bool_expr '{' stmt_list '}' ELSE '{' stmt_list '}' {
+    | IF bool_expr '{' stmt_list '}' ELSE '{' stmt_list '}' ';' {
         int condition = $2;
         int saved_executing = executing;
         
