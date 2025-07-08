@@ -1,4 +1,4 @@
 build
-include
+include/parser.tab.h
 *.exe
 interpreter

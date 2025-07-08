@@ -1,39 +1,26 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "parser.tab.h"
-
-// Declare symbol table type
-typedef struct Symbol {
-    char *name;
-    int value;
-    struct Symbol *next;
-} Symbol;
-
-extern Symbol *symtab;
+#include "ast.h"
 
 extern int yyparse();
 extern FILE *yyin;
 
-int main(int argc, char *argv[]) {
+int main(int argc, char **argv) {
     if (argc > 1) {
         yyin = fopen(argv[1], "r");
         if (!yyin) {
-            perror("Error opening file");
+            perror("fopen");
+            return 1;
+        }
+    } else {
+        yyin = fopen("input.txt", "r");
+        if (!yyin) {
+            fprintf(stderr, "Nie można otworzyć pliku input.txt\n");
             return 1;
         }
     }
-    
-    yyparse();
-    
-    // Clean up symbol table
-    Symbol *current = symtab;
-    while (current != NULL) {
-        Symbol *next = current->next;
-        free(current->name);
-        free(current);
-        current = next;
+    if (yyparse() == 0) {
+        eval(root);
     }
-    symtab = NULL;
-    
     return 0;
 }

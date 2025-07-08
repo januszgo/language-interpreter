@@ -10,7 +10,7 @@ endif
 
 FLEX = flex -o build/lexer.c src/lexer.l
 BISON = bison --defines=include/parser.tab.h -o build/parser.c src/parser.y
-GCC = gcc -o interpreter build/lexer.c build/parser.c src/main.c -Iinclude -lm
+GCC = gcc -o interpreter build/lexer.c build/parser.c src/ast.c src/main.c -Iinclude -lm
 
 .PHONY: all clean rerun
 
@@ -33,7 +33,7 @@ rerun:
 ifeq ($(IS_WINDOWS),1)
 	@if exist build rmdir /s /q build
 	@if not exist build mkdir build
-	@if exist include rmdir /s /q include
+	@if exist include\parser.tab.h del include\parser.tab.h
 	@if not exist include mkdir include
 	$(FLEX)
 	$(BISON)
@@ -42,7 +42,7 @@ ifeq ($(IS_WINDOWS),1)
 else
 	@rm -rf build
 	@mkdir -p build
-	@rm -rf include
+	@rm -f include/parser.tab.h
 	@mkdir -p include
 	$(FLEX)
 	$(BISON)
@@ -53,10 +53,10 @@ endif
 clean:
 ifeq ($(IS_WINDOWS),1)
 	@if exist build rmdir /s /q build
-	@if exist include rmdir /s /q include
+	@if exist include\parser.tab.h del include\parser.tab.h
 	@if exist interpreter.exe del interpreter.exe
 else
 	@rm -rf build
-	@rm -rf include
+	@rm -f include/parser.tab.h
 	@rm -f interpreter
 endif
